@@ -9,5 +9,6 @@ target 'WeatherAppDemo' do
   pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
   pod 'SDWebImage', '~> 4.0'
-
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
 end

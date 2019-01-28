@@ -10,6 +10,16 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.34.0):
     - FBSDKCoreKit
+  - GoogleMaps (2.7.0):
+    - GoogleMaps/Maps (= 2.7.0)
+  - GoogleMaps/Base (2.7.0)
+  - GoogleMaps/Maps (2.7.0):
+    - GoogleMaps/Base
+  - GooglePlacePicker (2.7.0):
+    - GoogleMaps (= 2.7.0)
+    - GooglePlaces (= 2.7.0)
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
   - GoogleSignIn (4.1.2):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
@@ -37,6 +47,8 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - FBSDKLoginKit
+  - GooglePlacePicker
+  - GooglePlaces
   - GoogleSignIn
   - SDWebImage (~> 4.0)
 
@@ -46,6 +58,9 @@ SPEC REPOS:
     - Bolts
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
     - GoogleSignIn
     - GoogleToolboxForMac
     - GTMOAuth2
@@ -57,12 +72,15 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
   FBSDKLoginKit: 8c78f57a145afb756e4755e69195ebe08a42466e
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlacePicker: 59ea44db173c58486ad6123993e81feefcbce9c3
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
 
-PODFILE CHECKSUM: da01a4f37153bc9e634204bd9d810a691c9478f5
+PODFILE CHECKSUM: 7f0483e452e3b11da5425fd2394f39ba5a6684fb
 
 COCOAPODS: 1.5.3
