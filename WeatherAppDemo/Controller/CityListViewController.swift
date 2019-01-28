@@ -70,6 +70,8 @@ extension CityListViewController: GMSAutocompleteViewControllerDelegate {
         print("Place name: \(place.name)")
         print("Place address: \(place.formattedAddress)")
         print("Place attributions: \(place.attributions)")
+        print("place lat: \(place.coordinate.latitude)")
+        print("place lat: \(place.coordinate.longitude)")
         dismiss(animated: true, completion: nil)
     }
     
