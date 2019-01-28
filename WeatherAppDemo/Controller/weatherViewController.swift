@@ -41,9 +41,14 @@ class weatherViewController: UIViewController {
     
     @IBAction func listTapped(_ sender: Any) {
         let myVC = storyboard?.instantiateViewController(withIdentifier: "CityListViewController") as! CityListViewController
+        myVC.delegate = self
         navigationController?.pushViewController(myVC, animated: true)
     }
     
+    
+    func getLocationFromList(_ dataModel:SearchedLocationModel) {
+        print("Location got \(dataModel.name!)")
+    }
 }
 
 extension weatherViewController: UICollectionViewDelegate,UICollectionViewDataSource {

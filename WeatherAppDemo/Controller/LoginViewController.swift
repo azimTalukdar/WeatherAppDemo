@@ -31,7 +31,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         //Facebook
-        
+        openWeatherDetail() //AZIM CHECK HARDCODED
         if ((FBSDKAccessToken.current()) != nil) {
             // User is logged in, do work such as go to next view controller.
             fetchFBProfile()

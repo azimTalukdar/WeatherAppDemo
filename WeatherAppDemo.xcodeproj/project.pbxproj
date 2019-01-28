@@ -18,6 +18,7 @@
 		5AE756C621FEF11C00D28502 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE756C521FEF11C00D28502 /* WeatherTableViewCell.swift */; };
 		5AE756C821FF07A200D28502 /* CityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE756C721FF07A200D28502 /* CityListViewController.swift */; };
 		5AE756CA21FF07C800D28502 /* CityListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE756C921FF07C800D28502 /* CityListTableViewCell.swift */; };
+		5AE756CE21FF271B00D28502 /* WeatherAppDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5AE756CC21FF271B00D28502 /* WeatherAppDemo.xcdatamodeld */; };
 		C6FECB243619BDD683A28BD3 /* Pods_WeatherAppDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2725FA052C7EDF528257245 /* Pods_WeatherAppDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		5AE756C521FEF11C00D28502 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		5AE756C721FF07A200D28502 /* CityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewController.swift; sourceTree = "<group>"; };
 		5AE756C921FF07C800D28502 /* CityListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListTableViewCell.swift; sourceTree = "<group>"; };
+		5AE756CD21FF271B00D28502 /* WeatherAppDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeatherAppDemo.xcdatamodel; sourceTree = "<group>"; };
 		C2725FA052C7EDF528257245 /* Pods_WeatherAppDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherAppDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0212460346EAAE46A21AD6E /* Pods-WeatherAppDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherAppDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherAppDemo/Pods-WeatherAppDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F5C6A685A53AE6266DEFB289 /* Pods-WeatherAppDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherAppDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherAppDemo/Pods-WeatherAppDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -77,10 +79,11 @@
 			children = (
 				18268CF721FC4BC700123969 /* AppDelegate.swift */,
 				5AE756C021FEED8500D28502 /* Extra */,
-				5AE756BF21FEED7500D28502 /* View */,
 				5AE756BE21FEED6E00D28502 /* Model */,
+				5AE756BF21FEED7500D28502 /* View */,
 				5AE756BC21FEED5200D28502 /* ViewModel */,
 				5AE756BB21FEED3D00D28502 /* Controller */,
+				5AE756CB21FF26DB00D28502 /* Database */,
 				18268CFB21FC4BC800123969 /* Main.storyboard */,
 				18268CFE21FC4BCF00123969 /* Assets.xcassets */,
 				18268D0021FC4BCF00123969 /* LaunchScreen.storyboard */,
@@ -129,6 +132,14 @@
 			children = (
 			);
 			path = Extra;
+			sourceTree = "<group>";
+		};
+		5AE756CB21FF26DB00D28502 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				5AE756CC21FF271B00D28502 /* WeatherAppDemo.xcdatamodeld */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 		74D325A0144AD78106861848 /* Pods */ = {
@@ -302,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AE756C621FEF11C00D28502 /* WeatherTableViewCell.swift in Sources */,
+				5AE756CE21FF271B00D28502 /* WeatherAppDemo.xcdatamodeld in Sources */,
 				5AE756C221FEEE0700D28502 /* weatherViewController.swift in Sources */,
 				5AE756C421FEF0F400D28502 /* WeatherCollectionViewCell.swift in Sources */,
 				18268CFA21FC4BC700123969 /* LoginViewController.swift in Sources */,
@@ -516,6 +528,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5AE756CC21FF271B00D28502 /* WeatherAppDemo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5AE756CD21FF271B00D28502 /* WeatherAppDemo.xcdatamodel */,
+			);
+			currentVersion = 5AE756CD21FF271B00D28502 /* WeatherAppDemo.xcdatamodel */;
+			path = WeatherAppDemo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 18268CEC21FC4BC700123969 /* Project object */;
 }

@@ -8,19 +8,22 @@
 
 import UIKit
 import GooglePlaces
+import CoreData
+
+let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+var dataArr = [SearchedLocationModel]()
 
 class CityListViewController: UIViewController {
 
     @IBOutlet weak var myTableView: UITableView!
+    var delegate : weatherViewController?
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         myTableView.delegate = self
         myTableView.dataSource = self
+        loadMyData()
         // Do any additional setup after loading the view.
         let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = addBarButton
@@ -34,11 +37,25 @@ class CityListViewController: UIViewController {
         present(autocompleteController, animated: true, completion: nil)
     }
     
+    func loadMyData(){
+        let request : NSFetchRequest<SearchedLocationModel> = SearchedLocationModel.fetchRequest()
+        do {
+            dataArr = try context.fetch(request)
+        } catch  {
+            print("error loading data- \(error)")
+        }
+        
+        myTableView.reloadData()
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func addMyLocationTapped(_ sender: Any) {
+    }
 }
 
 extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -48,17 +65,18 @@ extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return dataArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell_ = tableView.dequeueReusableCell(withIdentifier: "CityListTableViewCell", for: indexPath) as! CityListTableViewCell
-        cell_.lblCityName.text = "Mumbai"
+        cell_.lblCityName.text = dataArr[indexPath.row].name
         return cell_
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.getLocationFromList(dataArr[indexPath.row])
         navigationController?.popViewController(animated: true)
     }
 }
@@ -72,6 +90,13 @@ extension CityListViewController: GMSAutocompleteViewControllerDelegate {
         print("Place attributions: \(place.attributions)")
         print("place lat: \(place.coordinate.latitude)")
         print("place lat: \(place.coordinate.longitude)")
+        
+        let searchModel = SearchedLocationModel(context: context)
+        searchModel.name = place.name
+        searchModel.latitude = place.coordinate.latitude
+        searchModel.longitude = place.coordinate.longitude
+        
+        saveLocation()
         dismiss(animated: true, completion: nil)
     }
     
@@ -92,6 +117,15 @@ extension CityListViewController: GMSAutocompleteViewControllerDelegate {
     
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
+    fileprivate func saveLocation()
+    {
+        do{
+        try context.save()
+        }catch{
+            print("Error in saving City \(error)")
+        }
     }
     
 }
