@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreLocation
 
 class weatherViewController: UIViewController {
+    let locationManager = CLLocationManager()
+    
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var lblName: UILabel!
     
@@ -23,6 +26,8 @@ class weatherViewController: UIViewController {
     
     @IBOutlet weak var myTableView: UITableView!
     
+    
+//    let currenytLocation
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,7 +36,16 @@ class weatherViewController: UIViewController {
         
         myCollectionView.delegate = self
         myCollectionView .dataSource = self
+        
+        locationManager.requestWhenInUseAuthorization()
+        
         // Do any additional setup after loading the view.
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+            locationManager.startUpdatingLocation()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,5 +100,17 @@ extension weatherViewController: UITableViewDelegate, UITableViewDataSource {
         cell_.lblMinTemprature.text = "22"
         cell_.lblMaxTemprature.text = "32"
         return cell_
+    }
+}
+
+extension weatherViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else {
+            return
+        }
+        
+        print("Location is \(locationValue.latitude), \(locationValue.longitude)")
+        locationManager.stopUpdatingLocation()
     }
 }
