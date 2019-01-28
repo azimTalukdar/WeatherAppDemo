@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleSignIn
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         //Google
-        GIDSignIn.sharedInstance().clientID = "YOUR_CLIENT_ID"
-//        GIDSignIn.sharedInstance().delegate = self
+//        GMSPlacesClient.provideAPIKey("AIzaSyAxJD-pnsgn5EXPpw-49en3A7yVBJGTa20")
+//        GMSServices.provideAPIKey("AIzaSyAxJD-pnsgn5EXPpw-49en3A7yVBJGTa20")
         
         return true
     }
