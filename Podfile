@@ -8,5 +8,6 @@ target 'WeatherAppDemo' do
   pod 'Alamofire', '~> 4.7'
   pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
+  pod 'SDWebImage', '~> 4.0'
 
 end
