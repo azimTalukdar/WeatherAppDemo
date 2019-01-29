@@ -12,7 +12,8 @@ import CoreData
 import CoreLocation
 
 class CityListViewController: UIViewController {
-
+    @IBOutlet weak var viewToolBar: UIView!
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var dataArr = [SearchedLocationModel]()
     let locationManager = CLLocationManager()
@@ -31,6 +32,8 @@ class CityListViewController: UIViewController {
         
         locationManager.requestWhenInUseAuthorization()
         
+        viewToolBar.layer.borderWidth = 1.0
+        viewToolBar.layer.borderColor = UIColor.white.cgColor
         // Do any additional setup after loading the view.
         
     }
@@ -186,14 +189,50 @@ extension CityListViewController: CLLocationManagerDelegate {
                     print(pm.postalCode)
                     print(pm.subThoroughfare)
                      */
-                    let searchModel = SearchedLocationModel(context: self.context)
-                    searchModel.name = place_.subLocality
-                    searchModel.latitude = lat
-                    searchModel.longitude = lon
                     
-                    self.saveLocation()
+                    if !self.someEntityExists(name: place_.subLocality!) {
+                        let searchModel = SearchedLocationModel(context: self.context)
+                        searchModel.name = place_.subLocality
+                        searchModel.latitude = lat
+                        searchModel.longitude = lon
+                        self.saveLocation()
+                    }else
+                    {
+                        self.showAlert()
+                    }
+                    
                 }
         })
         
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Sorry!!!", message: "Location is already added", preferredStyle: .alert)
+        let okBtn = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okBtn)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func someEntityExists(name: String) -> Bool {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "SearchedLocationModel")
+        let predicate = NSPredicate(format: "name == %@", name)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        
+        do{
+            let count = try context.count(for: request)
+            if(count == 0){
+                return false
+            }
+            else{
+                return true
+            }
+        }
+        catch let error as NSError {
+            
+            print("Could not fetch \(error), \(error.userInfo)")
+            return false
+        }
     }
 }

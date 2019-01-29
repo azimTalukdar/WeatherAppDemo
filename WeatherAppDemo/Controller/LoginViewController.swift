@@ -25,6 +25,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         //Facebook
+        fbLoginButton.readPermissions = ["public_profile", "email"]
+        fbLoginButton.delegate = self
         if ((FBSDKAccessToken.current()) != nil) {
             // User is logged in, do work such as go to next view controller.
             fetchFBProfile()

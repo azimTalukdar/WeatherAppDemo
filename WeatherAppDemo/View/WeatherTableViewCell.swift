@@ -9,8 +9,28 @@
 import UIKit
 
 class WeatherTableViewCell: UITableViewCell {
-    @IBOutlet weak var lblDay: UILabel!
     
+    
+    var dailyViewModel: DailyDatumViewModel! {
+        didSet {
+            lblDay.text = dailyViewModel.day
+            lblMinTemprature.text = dailyViewModel.minTemprature
+            lblMaxTemprature.text = dailyViewModel.maxTemprature
+            imgWeatherIcon.image = UIImage(named: dailyViewModel.icon)
+        }
+    }
+    
+    
+    var daily: DailyDatum! {
+        didSet {
+            lblDay.text = (daily.time).getTimeFromUTC()
+            lblMinTemprature.text = "\(daily.apparentTemperatureMin)°"
+            lblMaxTemprature.text = "\(daily.apparentTemperatureMax)°"
+            imgWeatherIcon.image = UIImage(named: daily.icon)
+        }
+    }
+    
+    @IBOutlet weak var lblDay: UILabel!
     @IBOutlet weak var imgWeatherIcon: UIImageView!
     @IBOutlet weak var lblMinTemprature: UILabel!
     @IBOutlet weak var lblMaxTemprature: UILabel!

@@ -12,6 +12,9 @@ import SDWebImage
 
 class weatherViewController: UIViewController {
     
+    @IBOutlet weak var imgBackground: UIImageView!
+    @IBOutlet weak var viewCollection: UIView!
+    @IBOutlet weak var viewToolBar: UIView!
     
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var lblName: UILabel!
@@ -48,15 +51,40 @@ class weatherViewController: UIViewController {
 //        getLocation()
         loadFromUserdefaul()
         if locationName == nil{
-            print("You have not selected any location")
             displayLocationAlert()
         }else{
-            
             getLocationNew()
         }
-        
-        
         setUpProfile()
+        viewCollection.layer.borderWidth = 1.0
+        viewCollection.layer.borderColor = UIColor.white.cgColor
+        
+        viewToolBar.layer.borderWidth = 1.0
+        viewToolBar.layer.borderColor = UIColor.white.cgColor
+        
+        
+        imgProfile.layer.borderWidth = 0.5
+        imgProfile.layer.borderColor = UIColor.white.cgColor
+        
+        addMotionEffect()
+    }
+    
+    func addMotionEffect() {
+        let min = CGFloat(-100)
+        let max = CGFloat(100)
+        
+        let xMotion = UIInterpolatingMotionEffect(keyPath: "layer.transform.translation.x", type: .tiltAlongHorizontalAxis)
+        xMotion.minimumRelativeValue = min
+        xMotion.maximumRelativeValue = max
+        
+        let yMotion = UIInterpolatingMotionEffect(keyPath: "layer.transform.translation.y", type: .tiltAlongVerticalAxis)
+        yMotion.minimumRelativeValue = min
+        yMotion.maximumRelativeValue = max
+        
+        let motionEffectGroup = UIMotionEffectGroup()
+        motionEffectGroup.motionEffects = [xMotion] //addMotionEffect()
+        
+        imgBackground.addMotionEffect(motionEffectGroup)
     }
     
     func displayLocationAlert() {
@@ -69,9 +97,11 @@ class weatherViewController: UIViewController {
     }
     
     func loadFromUserdefaul() -> Void {
-        locationName = UserDefaults.standard.object(forKey: "locationName") as! String
-        locationLat = UserDefaults.standard.object(forKey: "locationLat") as! String
-        locationLng = UserDefaults.standard.object(forKey: "locationLng") as! String
+        if UserDefaults.standard.object(forKey: "locationName") != nil {
+            locationName = UserDefaults.standard.object(forKey: "locationName") as! String
+            locationLat = UserDefaults.standard.object(forKey: "locationLat") as! String
+            locationLng = UserDefaults.standard.object(forKey: "locationLng") as! String
+        }
     }
     
     func setUpProfile() -> Void {
@@ -124,16 +154,14 @@ class weatherViewController: UIViewController {
     func updateCurrentTemp() -> Void {
         lblLocation.text = locationName
         lblDescription.text = mainDataModel.currently.summary
-        lblTemprature.text = "\(mainDataModel.currently.temperature)"
-        lblMinTemprature.text = "\(mainDataModel.daily.data[0].apparentTemperatureMin)"
-        lblMaxTemprature.text = "\(mainDataModel.daily.data[0].apparentTemperatureMax)"
+        lblTemprature.text = "\(mainDataModel.currently.temperature)°"
+        lblMinTemprature.text = "\(mainDataModel.daily.data[0].apparentTemperatureMin)°"
+        lblMaxTemprature.text = "\(mainDataModel.daily.data[0].apparentTemperatureMax)°"
         
         myTableView.reloadData()
         myCollectionView.reloadData()
     }
-    
-//    func getDayFromUnix(_ timeResult:Double) -> String {
-//    }
+
 }
 
 extension weatherViewController: UICollectionViewDelegate,UICollectionViewDataSource {
@@ -148,9 +176,7 @@ extension weatherViewController: UICollectionViewDelegate,UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell_ = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCollectionViewCell", for: indexPath) as! WeatherCollectionViewCell
-        cell_.lblDay.text = (mainDataModel.hourly.data[indexPath.row].time).getTimeFromUTC()
-        cell_.lblTemprature.text = "\(mainDataModel.hourly.data[indexPath.row].temperature)"
-        cell_.imgWeatherIcon.image = UIImage(named: mainDataModel.hourly.data[indexPath.row].icon)
+        cell_.current = mainDataModel.hourly.data[indexPath.row]
         return cell_
     }
 }
@@ -167,11 +193,7 @@ extension weatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell_ = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         cell_.selectionStyle = .none
-        
-        cell_.lblDay.text = (mainDataModel.daily.data[indexPath.row].time).getDateStringFromUTC()
-        cell_.lblMinTemprature.text = "\(mainDataModel.daily.data[indexPath.row].apparentTemperatureMin)"
-        cell_.lblMaxTemprature.text = "\(mainDataModel.daily.data[indexPath.row].apparentTemperatureMax)"
-        cell_.imgWeatherIcon.image = UIImage(named: mainDataModel.daily.data[indexPath.row].icon)
+        cell_.daily = mainDataModel.daily.data[indexPath.row]
         return cell_
     }
 }
