@@ -9,12 +9,13 @@
 import UIKit
 import GooglePlaces
 import CoreData
-
-let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-var dataArr = [SearchedLocationModel]()
+import CoreLocation
 
 class CityListViewController: UIViewController {
 
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var dataArr = [SearchedLocationModel]()
+    let locationManager = CLLocationManager()
     @IBOutlet weak var myTableView: UITableView!
     var delegate : weatherViewController?
     
@@ -27,6 +28,10 @@ class CityListViewController: UIViewController {
         // Do any additional setup after loading the view.
         let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = addBarButton
+        
+        locationManager.requestWhenInUseAuthorization()
+        
+        // Do any additional setup after loading the view.
         
     }
 
@@ -55,6 +60,11 @@ class CityListViewController: UIViewController {
     }
 
     @IBAction func addMyLocationTapped(_ sender: Any) {
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+            locationManager.startUpdatingLocation()
+        }
     }
 }
 
@@ -85,12 +95,13 @@ extension CityListViewController: GMSAutocompleteViewControllerDelegate {
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        /*
         print("Place name: \(place.name)")
         print("Place address: \(place.formattedAddress)")
         print("Place attributions: \(place.attributions)")
         print("place lat: \(place.coordinate.latitude)")
         print("place lat: \(place.coordinate.longitude)")
-        
+        */
         let searchModel = SearchedLocationModel(context: context)
         searchModel.name = place.name
         searchModel.latitude = place.coordinate.latitude
@@ -123,9 +134,66 @@ extension CityListViewController: GMSAutocompleteViewControllerDelegate {
     {
         do{
         try context.save()
+            loadMyData()
         }catch{
             print("Error in saving City \(error)")
         }
+        
     }
     
+}
+
+extension CityListViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else {
+            return
+        }
+        
+        print("Location is \(locationValue.latitude), \(locationValue.longitude)")
+        getAddressFromLatLon(pdblLatitude: locationValue.latitude, withLongitude: locationValue.longitude)
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
+        var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+        let lat: Double = pdblLatitude
+        //21.228124
+        let lon: Double = pdblLongitude
+        //72.833770
+        let ceo: CLGeocoder = CLGeocoder()
+        center.latitude = lat
+        center.longitude = lon
+        
+        let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+        
+        
+        ceo.reverseGeocodeLocation(loc, completionHandler:
+            {(placemarks, error) in
+                if (error != nil)
+                {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                }
+                let place_ = placemarks! as [CLPlacemark]
+                
+                if place_.count > 0 {
+                    let place_ = placemarks![0]
+                    /*
+                    print(pm.country)
+                    print(pm.locality)
+                    print(pm.subLocality)
+                    print(pm.thoroughfare)
+                    print(pm.postalCode)
+                    print(pm.subThoroughfare)
+                     */
+                    let searchModel = SearchedLocationModel(context: self.context)
+                    searchModel.name = place_.subLocality
+                    searchModel.latitude = lat
+                    searchModel.longitude = lon
+                    
+                    self.saveLocation()
+                }
+        })
+        
+    }
 }
