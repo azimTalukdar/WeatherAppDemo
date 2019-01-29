@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SDWebImage
 
-class weatherViewController: UIViewController {
+class weatherViewController: UIViewController,CityDelegate {
     
     @IBOutlet weak var imgBackground: UIImageView!
     @IBOutlet weak var viewCollection: UIView!
@@ -101,9 +101,9 @@ class weatherViewController: UIViewController {
     
     func loadFromUserdefaul() -> Void {
         if UserDefaults.standard.object(forKey: "locationName") != nil {
-            locationName = UserDefaults.standard.object(forKey: "locationName") as! String
-            locationLat = UserDefaults.standard.object(forKey: "locationLat") as! String
-            locationLng = UserDefaults.standard.object(forKey: "locationLng") as! String
+            locationName = UserDefaults.standard.object(forKey: constantString.LOCATION_NAME) as! String
+            locationLat = UserDefaults.standard.object(forKey: constantString.LOCATION_LAT) as! String
+            locationLng = UserDefaults.standard.object(forKey: constantString.LOCATION_LONG) as! String
         }
     }
     
@@ -129,9 +129,9 @@ class weatherViewController: UIViewController {
     
     func getLocationFromList(_ dataModel:SearchedLocationModel) {
         print("Location got \(dataModel.name!)")
-        UserDefaults.standard.setValue(dataModel.name, forKey: "locationName")
-        UserDefaults.standard.setValue("\(dataModel.latitude)", forKey: "locationLat")
-        UserDefaults.standard.setValue("\(dataModel.longitude)", forKey: "locationLng")
+        UserDefaults.standard.setValue(dataModel.name, forKey: constantString.LOCATION_NAME)
+        UserDefaults.standard.setValue("\(dataModel.latitude)", forKey: constantString.LOCATION_LAT)
+        UserDefaults.standard.setValue("\(dataModel.longitude)", forKey: constantString.LOCATION_LONG)
         loadFromUserdefaul()
         getLocationNew()
     }

@@ -20,7 +20,7 @@ class WeatherTableViewCell: UITableViewCell {
         }
     }
     
-    /*
+    /* will be used for MVC
     var daily: DailyDatum! {
         didSet {
             lblDay.text = (daily.time).getTimeFromUTC()

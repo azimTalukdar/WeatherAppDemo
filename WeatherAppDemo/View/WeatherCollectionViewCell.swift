@@ -17,7 +17,7 @@ class WeatherCollectionViewCell: UICollectionViewCell {
             imgWeatherIcon.image = UIImage(named: viewModel.icon)
         }
     }
-    /*
+    /* will be used for MVC
     var current: Currently! {
         didSet {
             lblDay.text = (current.time).getTimeFromUTC()

@@ -11,14 +11,21 @@ import GooglePlaces
 import CoreData
 import CoreLocation
 
+protocol CityDelegate {
+//    var delegate: UIViewController?{get set}
+    func getLocationFromList(_ dataModel:SearchedLocationModel)
+}
+
 class CityListViewController: UIViewController {
+    
+    
     @IBOutlet weak var viewToolBar: UIView!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var dataArr = [SearchedLocationModel]()
     let locationManager = CLLocationManager()
     @IBOutlet weak var myTableView: UITableView!
-    var delegate : weatherViewController?
+    var delegate : CityDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

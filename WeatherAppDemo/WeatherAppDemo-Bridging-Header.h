@@ -7,6 +7,3 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
-#define LOCATION_NAME = @"locationName"
-#define LOCATION_LATITUDE = @"locationLat"
-#define LOCATION_LONGIYUDE = @"locationLng"
