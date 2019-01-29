@@ -34,6 +34,9 @@ class weatherViewController: UIViewController {
     
     var mainDataModel: WeatherModel!
     
+    var tableDataSource = [DailyDatumViewModel]()
+    var collectionDataSource = [CurrentlyViewModel]()
+    
     var locationName: String!
     var locationLat: String!
     var locationLng: String!
@@ -141,6 +144,8 @@ class weatherViewController: UIViewController {
             OperationQueue.main.addOperation({
                 do{
                     self.mainDataModel = try JSONDecoder().decode(WeatherModel.self, from: response)
+                    self.tableDataSource = self.mainDataModel.daily.data.map({return DailyDatumViewModel(dailyModel: $0)})
+                    self.collectionDataSource = self.mainDataModel.hourly.data.map({return CurrentlyViewModel(currentModel: $0)})
                     self.updateCurrentTemp()
                 }catch{
                     print(error)
@@ -176,7 +181,8 @@ extension weatherViewController: UICollectionViewDelegate,UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell_ = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCollectionViewCell", for: indexPath) as! WeatherCollectionViewCell
-        cell_.current = mainDataModel.hourly.data[indexPath.row]
+//        cell_.current = mainDataModel.hourly.data[indexPath.row]
+        cell_.viewModel = collectionDataSource[indexPath.row]
         return cell_
     }
 }
@@ -187,13 +193,14 @@ extension weatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mainDataModel == nil ? 0 : mainDataModel.daily.data.count
+        return mainDataModel == nil ? 0 : tableDataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell_ = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         cell_.selectionStyle = .none
-        cell_.daily = mainDataModel.daily.data[indexPath.row]
+//        cell_.daily = mainDataModel.daily.data[indexPath.row]
+        cell_.viewModel = tableDataSource[indexPath.row]
         return cell_
     }
 }

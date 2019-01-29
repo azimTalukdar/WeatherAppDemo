@@ -11,16 +11,16 @@ import UIKit
 class WeatherTableViewCell: UITableViewCell {
     
     
-    var dailyViewModel: DailyDatumViewModel! {
+    var viewModel: DailyDatumViewModel! {
         didSet {
-            lblDay.text = dailyViewModel.day
-            lblMinTemprature.text = dailyViewModel.minTemprature
-            lblMaxTemprature.text = dailyViewModel.maxTemprature
-            imgWeatherIcon.image = UIImage(named: dailyViewModel.icon)
+            lblDay.text = viewModel.day
+            lblMinTemprature.text = viewModel.minTemprature
+            lblMaxTemprature.text = viewModel.maxTemprature
+            imgWeatherIcon.image = UIImage(named: viewModel.icon)
         }
     }
     
-    
+    /*
     var daily: DailyDatum! {
         didSet {
             lblDay.text = (daily.time).getTimeFromUTC()
@@ -29,7 +29,7 @@ class WeatherTableViewCell: UITableViewCell {
             imgWeatherIcon.image = UIImage(named: daily.icon)
         }
     }
-    
+    */
     @IBOutlet weak var lblDay: UILabel!
     @IBOutlet weak var imgWeatherIcon: UIImageView!
     @IBOutlet weak var lblMinTemprature: UILabel!

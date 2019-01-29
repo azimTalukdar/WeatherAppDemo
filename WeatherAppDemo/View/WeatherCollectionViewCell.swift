@@ -17,7 +17,7 @@ class WeatherCollectionViewCell: UICollectionViewCell {
             imgWeatherIcon.image = UIImage(named: viewModel.icon)
         }
     }
-    
+    /*
     var current: Currently! {
         didSet {
             lblDay.text = (current.time).getTimeFromUTC()
@@ -25,7 +25,7 @@ class WeatherCollectionViewCell: UICollectionViewCell {
             imgWeatherIcon.image = UIImage(named: current.icon)
         }
     }
-    
+    */
     
     @IBOutlet weak var lblDay: UILabel!
     @IBOutlet weak var imgWeatherIcon: UIImageView!
