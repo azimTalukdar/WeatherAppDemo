@@ -12,7 +12,6 @@
 		18268CFD21FC4BC800123969 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18268CFB21FC4BC800123969 /* Main.storyboard */; };
 		18268CFF21FC4BCF00123969 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18268CFE21FC4BCF00123969 /* Assets.xcassets */; };
 		18268D0221FC4BCF00123969 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18268D0021FC4BCF00123969 /* LaunchScreen.storyboard */; };
-		5ACEE29522001AF900C517D8 /* WeatherModel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACEE29422001AF900C517D8 /* WeatherModel2.swift */; };
 		5ACEE2972200402A00C517D8 /* TimeFromUnixExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACEE2962200402A00C517D8 /* TimeFromUnixExtension.swift */; };
 		5ACEE299220044DD00C517D8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACEE298220044DD00C517D8 /* Constants.swift */; };
 		5ACEE29B22007AF200C517D8 /* DailyDatumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACEE29A22007AF200C517D8 /* DailyDatumViewModel.swift */; };
@@ -38,7 +37,6 @@
 		18268CFE21FC4BCF00123969 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18268D0121FC4BCF00123969 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18268D0321FC4BCF00123969 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5ACEE29422001AF900C517D8 /* WeatherModel2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel2.swift; sourceTree = "<group>"; };
 		5ACEE2962200402A00C517D8 /* TimeFromUnixExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFromUnixExtension.swift; sourceTree = "<group>"; };
 		5ACEE298220044DD00C517D8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5ACEE29A22007AF200C517D8 /* DailyDatumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDatumViewModel.swift; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 			children = (
 				5AE756D721FF52D700D28502 /* UserModel.swift */,
 				5AE756D921FF6EEB00D28502 /* WeatherModel.swift */,
-				5ACEE29422001AF900C517D8 /* WeatherModel2.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -267,7 +264,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-WeatherAppDemo/Pods-WeatherAppDemo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -278,7 +274,6 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -353,7 +348,6 @@
 				5ACEE2972200402A00C517D8 /* TimeFromUnixExtension.swift in Sources */,
 				5AE756CA21FF07C800D28502 /* CityListTableViewCell.swift in Sources */,
 				5ACEE29B22007AF200C517D8 /* DailyDatumViewModel.swift in Sources */,
-				5ACEE29522001AF900C517D8 /* WeatherModel2.swift in Sources */,
 				5ACEE299220044DD00C517D8 /* Constants.swift in Sources */,
 				5AE756D821FF52D700D28502 /* UserModel.swift in Sources */,
 				5AE756C821FF07A200D28502 /* CityListViewController.swift in Sources */,

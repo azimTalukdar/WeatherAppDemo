@@ -10,21 +10,23 @@ import Foundation
 
 struct WeatherModel: Codable {
     let latitude, longitude: Double
-    let timezone: String
+//    let timezone: String
     let currently: Currently
-    let minutely: Minutely?
+//    let minutely: Minutely?
     let hourly: Hourly
     let daily: Daily
-    let flags: Flags
+//    let flags: Flags
 //    let offset: Int?
 }
 
 struct Currently: Codable {
     let time: Int
-    let summary: String
     let icon: String
+    let summary: String
+    let temperature: Double
+    /*
     let nearestStormDistance, nearestStormBearing: Int?
-    let precipIntensity, precipProbability, temperature, apparentTemperature: Double
+    let precipIntensity, precipProbability, apparentTemperature: Double
     let dewPoint, humidity, pressure, windSpeed: Double
     let windGust: Double
     let windBearing: Int
@@ -32,10 +34,11 @@ struct Currently: Codable {
     let uvIndex: Int
     let visibility, ozone: Double
     let precipType: String?
+ */
 }
 
 struct Daily: Codable {
-    let summary: String
+    let summary: String?
     let icon: String
     let data: [DailyDatum]
 }
@@ -43,9 +46,11 @@ struct Daily: Codable {
 struct DailyDatum: Codable {
     let time: Int
     let summary, icon: String
+    let temperatureMax, temperatureMin: Double
+    /*
     let sunriseTime, sunsetTime: Int
     let moonPhase, precipIntensity, precipIntensityMax: Double
-    let precipIntensityMaxTime: Int
+    let precipIntensityMaxTime: Int?
     let precipProbability, temperatureHigh: Double
     let temperatureHighTime: Int
     let temperatureLow: Double
@@ -59,15 +64,16 @@ struct DailyDatum: Codable {
     let windGustTime, windBearing: Int
     let cloudCover: Double
     let uvIndex, uvIndexTime: Int
-    let visibility, ozone, temperatureMin: Double
+    let visibility, ozone: Double
     let temperatureMinTime: Int
-    let temperatureMax: Double
+    
     let temperatureMaxTime: Int
     let apparentTemperatureMin: Double
     let apparentTemperatureMinTime: Int
     let apparentTemperatureMax: Double
     let apparentTemperatureMaxTime: Int
     let precipType: String?
+    */
 }
 
 struct Flags: Codable {

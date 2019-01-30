@@ -34,8 +34,6 @@ class CityListViewController: UIViewController {
         myTableView.dataSource = self
         loadMyData()
         // Do any additional setup after loading the view.
-        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        navigationItem.rightBarButtonItem = addBarButton
         
         locationManager.requestWhenInUseAuthorization()
         
@@ -69,6 +67,10 @@ class CityListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func addCustomeLocation(_ sender: Any) {
+        addTapped()
+    }
+    
     @IBAction func addMyLocationTapped(_ sender: Any) {
         if CLLocationManager.locationServicesEnabled(){
             locationManager.delegate = self

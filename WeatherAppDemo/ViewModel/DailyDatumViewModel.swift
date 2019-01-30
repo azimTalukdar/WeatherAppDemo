@@ -19,7 +19,7 @@ struct DailyDatumViewModel {
     init(dailyModel: DailyDatum) {
         self.day = (dailyModel.time).getDateStringFromUTC()
         self.icon = dailyModel.icon
-        self.minTemprature = "\(dailyModel.apparentTemperatureMin)°"
-        self.maxTemprature = "\(dailyModel.apparentTemperatureMax)°"
+        self.minTemprature = "\(dailyModel.temperatureMin)°"
+        self.maxTemprature = "\(dailyModel.temperatureMax)°"
     }
 }

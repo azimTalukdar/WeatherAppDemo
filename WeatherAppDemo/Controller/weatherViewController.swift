@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import Alamofire
 import SDWebImage
 
 class weatherViewController: UIViewController,CityDelegate {
     
+    //MARK: - Varible and property -
     @IBOutlet weak var imgBackground: UIImageView!
     @IBOutlet weak var viewCollection: UIView!
     @IBOutlet weak var viewToolBar: UIView!
@@ -41,6 +41,7 @@ class weatherViewController: UIViewController,CityDelegate {
     var locationLat: String!
     var locationLng: String!
     
+    //MARK: - Methods -
 //    let currenytLocation
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +57,7 @@ class weatherViewController: UIViewController,CityDelegate {
         if locationName == nil{
             displayLocationAlert()
         }else{
-            getLocationNew()
+            getWeatherService()
         }
         setUpProfile()
         viewCollection.layer.borderWidth = 1.0
@@ -121,6 +122,14 @@ class weatherViewController: UIViewController,CityDelegate {
         openCityListVC()
     }
     
+    @IBAction func shareTapped(_ sender: Any) {
+        let message_ = "Weather Today in \(locationName!) is \(mainDataModel.currently.temperature)°"
+        let activityViewController = UIActivityViewController(
+            activityItems: [message_],
+            applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
+    }
+    
     func openCityListVC() {
         let myVC = storyboard?.instantiateViewController(withIdentifier: "CityListViewController") as! CityListViewController
         myVC.delegate = self
@@ -133,11 +142,11 @@ class weatherViewController: UIViewController,CityDelegate {
         UserDefaults.standard.setValue("\(dataModel.latitude)", forKey: constantString.LOCATION_LAT)
         UserDefaults.standard.setValue("\(dataModel.longitude)", forKey: constantString.LOCATION_LONG)
         loadFromUserdefaul()
-        getLocationNew()
+        getWeatherService()
     }
     
-    fileprivate func getLocationNew()  {
-        let urlString = "https://api.darksky.net/forecast/3b4607b5d057c59fdff1eeece940dd90/\(locationLat!),\(locationLng!)?units=si"
+    fileprivate func getWeatherService()  {
+        let urlString = "https://api.darksky.net/forecast/3b4607b5d057c59fdff1eeece940dd90/\(locationLat!),\(locationLng!)?units=si" //exclude=timezone,minutely,flags,offset?
         print("url string \(urlString)")
         HttpClientApi.instance().makeAPICallPOST(strAPI: urlString, params: nil, method: .GET, isHUD: true, success: { (response) in
             
@@ -160,8 +169,8 @@ class weatherViewController: UIViewController,CityDelegate {
         lblLocation.text = locationName
         lblDescription.text = mainDataModel.currently.summary
         lblTemprature.text = "\(mainDataModel.currently.temperature)°"
-        lblMinTemprature.text = "\(mainDataModel.daily.data[0].apparentTemperatureMin)°"
-        lblMaxTemprature.text = "\(mainDataModel.daily.data[0].apparentTemperatureMax)°"
+        lblMinTemprature.text = "\(mainDataModel.daily.data[0].temperatureMin)°"
+        lblMaxTemprature.text = "\(mainDataModel.daily.data[0].temperatureMax)°"
         
         myTableView.reloadData()
         myCollectionView.reloadData()

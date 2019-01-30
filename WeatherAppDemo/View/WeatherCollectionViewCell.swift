@@ -31,6 +31,9 @@ class WeatherCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imgWeatherIcon: UIImageView!
     @IBOutlet weak var lblTemprature: UILabel!
     
-    
+    override func awakeFromNib() {
+        self.imgWeatherIcon.layer.cornerRadius = 5.0
+        self.imgWeatherIcon.clipsToBounds = true
+    }
     
 }
